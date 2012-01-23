@@ -1,1 +1,22 @@
-detailed information will follow
+= ripTO =
+Dieses Programm ist dazu da, die Tagesordnung für die nächste BVV-Sitzung aus dem ALLRIS (z.B. https://www.berlin.de/ba-steglitz-zehlendorf/bvv-online/to010.asp?SILFDNR=2269 ) zu saugen, zu parsen und dann fürs Piratenwiki weiterzuverarbeiten. Dabei kommt dann sowas raus:
+https://wiki.piratenpartei.de/BE:Steglitz-Zehlendorf/BVV/2012_01_18
+
+== Features ==
+* Tagesordnung aus der HTML-Seite lesen und Metainformationen zu Anträgen (aus den entsprechenden Antragsseiten lesen)
+** klappt halbwegs zuverlässig, aber definitiv nicht perfekt
+* Paralleles Abrufen der Antragsseiten zur Laufzeitbeschleunigung
+* Erstellung von Wiki-Code, der momentan für Steglitz-Zehlendorf angepasst ist
+* Zu lesenden Tagesordnung wird über die SILFDNR spezifiziert, die als Parameter dem Programm zu übergeben ist.
+* Wurzel-URL steht in Konfigurationsfile
+
+== Anti-Features ==
+* schlampig zusammengehackt
+* Es wird nicht der Document-Tree des HTML Dokuments durchsucht, sondern nur nach markanten Pattern
+* fast nicht dokumentiert
+
+== Lizenz ==
+GPL v3, siehe Datei COPYING
+
+Für Extrawünsche bitte mich kontaktieren: arne.c.mueller[at]googlemail.com
+
