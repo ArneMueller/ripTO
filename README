@@ -15,6 +15,13 @@ https://wiki.piratenpartei.de/BE:Steglitz-Zehlendorf/BVV/2012_01_18
 * Es wird nicht der Document-Tree des HTML Dokuments durchsucht, sondern nur nach markanten Pattern
 * fast nicht dokumentiert
 
+== Benutzung ==
+Main-Class: de.piraten.berlin.ripto.Transformer
+
+Aufruf ohne Parameter: Lizenzinformationen und Benutzungshinweis
+
+Aufruf mit einem Parameter: Als einzigen Parameter die SILFDNR der Tagesordnung angeben, die kann man aus der URL der Tagesordnung ablesen
+
 == Lizenz ==
 GPL v3, siehe Datei COPYING
 
