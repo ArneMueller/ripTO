@@ -20,6 +20,7 @@ package de.piraten.berlin.ripto;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.Properties;
 
 /**
@@ -66,11 +67,28 @@ public class Transformer {
 			System.err.println("unable to read config file, using default");
 			config.setProperty("baseurl", "https://www.berlin.de/ba-steglitz-zehlendorf/bvv-online/to010.asp");
 		}
+
+		String outFile = config.getProperty("output");
+		PrintStream outStream;
+		if(outFile == null) {
+			outStream = System.out;
+		}
+		else if(outFile.trim().length() == 0 || outFile.equalsIgnoreCase("stdout")) {
+			outStream = System.out;
+		}
+		else { // apparently a filename
+			try {
+				outStream = new PrintStream(outFile);
+			} catch (FileNotFoundException e) {
+				System.err.println("output file \""+outFile+"\" not found, using stdout");
+				outStream = System.out;
+			}
+		}
 		
 		TOReader reader = new TOReader();
 		try {
 			Tagesordnung to = reader.read(config.getProperty("baseurl")+"?SILFDNR="+silfdnr);
-			System.out.println(to.toWiki());
+			outStream.println(to.toWiki());
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

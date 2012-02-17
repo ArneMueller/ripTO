@@ -33,7 +33,10 @@ public class TOP {
 		KLEINE_ANFRAGE,
 		GROSSE_ANFRAGE,
 		ANTRAG,
+		DRINGLICHKEITSANTRAG,
 		WAHLVORSCHLAG,
+		VORLAGE_ZUR_BESCHLUSSFASSUNG,
+		DRINGLICHE_VORLAGE_ZUR_BESCHLUSSFASSUNG,
 		SONSTIGES
 	}
 	
@@ -61,7 +64,11 @@ public class TOP {
 	
 	/** true, wenn es ein Antrag ist, über den abgestimmt wird*/
 	boolean needsVote() {
-		return type == Type.ANTRAG;
+		return type == Type.ANTRAG 
+				|| type == Type.WAHLVORSCHLAG 
+				|| type == Type.DRINGLICHKEITSANTRAG 
+				|| type == Type.VORLAGE_ZUR_BESCHLUSSFASSUNG
+				|| type == Type.DRINGLICHE_VORLAGE_ZUR_BESCHLUSSFASSUNG;
 	}
 	
 	public void init() throws ParseException {
@@ -105,7 +112,13 @@ public class TOP {
 						String art = buffer.substring(begin, end);
 						if(art.equalsIgnoreCase("Antrag")) {
 							type = Type.ANTRAG;
-						} else if(art.equalsIgnoreCase("Kleine Anfrage")) {
+						} else if(art.equalsIgnoreCase("Dringlichkeitsantrag")) {
+							type = Type.DRINGLICHKEITSANTRAG;
+						} else if(art.equalsIgnoreCase("Vorlage zur Beschlussfassung")) {
+							type = Type.VORLAGE_ZUR_BESCHLUSSFASSUNG;
+						} else if(art.equalsIgnoreCase("Dringliche Vorlage zur Beschlussfassung")) {
+							type = Type.DRINGLICHE_VORLAGE_ZUR_BESCHLUSSFASSUNG;
+						}else if(art.equalsIgnoreCase("Kleine Anfrage")) {
 							type = Type.KLEINE_ANFRAGE;
 						} else if(art.equalsIgnoreCase("Große Anfrage")) {
 							type = Type.GROSSE_ANFRAGE;
@@ -146,7 +159,7 @@ public class TOP {
 			out = "* '''"+tonr+"''' {{BE:Steglitz-Zehlendorf/BVV/BVVItem \n" +
 					"|Initiator="+antragsteller+"\n" +
 					"|Nr="+volfdnr+"\n" +
-					"|Vote="+(type == Type.ANTRAG || type == Type.WAHLVORSCHLAG ? 1:0)+"\n" +
+					"|Vote="+(needsVote() ? 1:0)+"\n" +
 					"|Titel="+wikiTitel()+" }}";
 		}
 		else {
